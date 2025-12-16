@@ -5,9 +5,17 @@
 body{
     background-color: var(--background);
     font-family: Verdana, sans-serif;
+    display: flex;
+  flex-direction: column; /* Stacks children vertically */
+  align-items: center;
+}
+.logo{
+    font-size: 3rem;
+    color: black;
+    text-align: center;
+
 }
 ul.breadcrumb {
-  padding: 10px 16px;
   list-style: none;
 }
 ul.breadcrumb li {
@@ -15,9 +23,8 @@ ul.breadcrumb li {
   font-size: 18px;
 }
 ul.breadcrumb li+li:before {
-  padding: 8px;
   color: black;
-  content: "/\00a0";
+  content: " / ";
 }
 ul.breadcrumb li a {
   text-decoration: none;
@@ -36,12 +43,6 @@ ul.breadcrumb li:nth-child(2) > a {
 ul.breadcrumb li a:hover {
   filter: saturate(0.3);
 }
-.subject-container {
-  display: flex;
-  flex-direction: column; /* Stacks children vertically */
-  align-items: center;
-}
-
 
 .search-form {
     display: flex; /* Aligns input and button side by side */
