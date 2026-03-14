@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { api } from "../services/api";
+import Navbar from "../components/Navbar";
 
 export default function ListEditor() {
   const { id } = useParams();
@@ -73,10 +74,12 @@ export default function ListEditor() {
 
   const shareUrl = list ? `${window.location.origin}/share/${list.share_token}` : "";
 
-  if (!list) return <p className="loading">Loading&hellip;</p>;
+  if (!list) return <><Navbar /><p className="loading">Loading&hellip;</p></>;
 
   return (
-    <main className="list-editor">
+    <>
+      <Navbar />
+      <main className="list-editor">
       <Link to="/dashboard" className="back-link">&larr; My lists</Link>
 
       {error && <p className="error">{error}</p>}
@@ -165,5 +168,6 @@ export default function ListEditor() {
         )}
       </section>
     </main>
+    </>
   );
 }

@@ -7,7 +7,7 @@ const SALT_ROUNDS = 12;
 
 function signToken(user) {
   return jwt.sign(
-    { id: user.id, email: user.email },
+    { id: user.id, email: user.email, name: user.name },
     process.env.JWT_SECRET,
     { expiresIn: "7d" }
   );

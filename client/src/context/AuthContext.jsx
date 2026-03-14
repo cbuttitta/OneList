@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
       try {
         const payload = JSON.parse(atob(token.split(".")[1]));
         if (payload.exp * 1000 > Date.now()) {
-          setUser({ id: payload.id, email: payload.email });
+          setUser({ id: payload.id, email: payload.email, name: payload.name });
         } else {
           localStorage.removeItem("token");
         }

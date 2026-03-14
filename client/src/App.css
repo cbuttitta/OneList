@@ -25,6 +25,36 @@ body {
   min-height: 100vh;
 }
 
+/* ---- Navbar ---- */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.navbar-brand {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--primary);
+  text-decoration: none;
+}
+.navbar-brand:hover { text-decoration: underline; }
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.navbar-user {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.navbar-user strong { color: var(--text); }
+
 /* ---- Shared utilities ---- */
 .error {
   color: var(--danger);

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../services/api";
+import Navbar from "../components/Navbar";
 
 export default function CreateList() {
   const [name, setName] = useState("");
@@ -24,7 +25,9 @@ export default function CreateList() {
   };
 
   return (
-    <main className="auth-page">
+    <>
+      <Navbar />
+      <main className="auth-page">
       <form onSubmit={handleSubmit} className="auth-form create-list-form">
         <Link to="/dashboard" className="back-link">&larr; Back to my lists</Link>
         <h2>New list</h2>
@@ -76,5 +79,6 @@ export default function CreateList() {
         <button type="submit" className="btn">Create list</button>
       </form>
     </main>
+    </>
   );
 }
