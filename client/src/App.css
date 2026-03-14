@@ -53,7 +53,7 @@ body {
   font-size: 0.875rem;
   color: var(--muted);
 }
-.navbar-user strong { color: var(--text); }
+.navbar-user strong { color: var(--primary); }
 
 /* ---- Shared utilities ---- */
 .error {
@@ -79,6 +79,7 @@ body {
   color: var(--primary);
   text-decoration: none;
   font-size: 0.9rem;
+  font-weight: bold;
 }
 
 /* ---- Buttons ---- */
@@ -187,7 +188,7 @@ input[readonly] { background: var(--bg); cursor: default; }
 }
 .list-card-info { display: flex; align-items: center; gap: 0.5rem; }
 .list-name { color: var(--primary); font-weight: bold; text-decoration: none; }
-.list-name:hover { text-decoration: underline; }
+.list-name:hover .list-name-text { text-decoration: underline; }
 .badge {
   font-size: 0.7rem;
   background: var(--secondary);
@@ -295,3 +296,81 @@ input[readonly] { background: var(--bg); cursor: default; }
 }
 .checkbox-label input[type="checkbox"] { width: auto; cursor: pointer; }
 .new-list-btn { display: inline-block; margin-bottom: 1.25rem; }
+
+/* ---- Password input with show/hide toggle ---- */
+.password-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.password-input-wrap input {
+  flex: 1;
+  padding-right: 4rem;
+}
+.password-toggle {
+  position: absolute;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.2rem 0.25rem;
+}
+.password-toggle:hover { text-decoration: underline; }
+
+/* ---- List type selector ---- */
+.type-options {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.type-option {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color 0.15s;
+}
+.type-option input[type="radio"] { width: auto; cursor: pointer; }
+.type-option:has(input:checked) {
+  border-color: var(--primary);
+  background: #fdf0f0;
+}
+
+/* ---- Delete modal ---- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.modal {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  max-width: 360px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.modal h3 { margin: 0; font-size: 1.05rem; }
+.modal p { margin: 0; font-size: 0.9rem; color: var(--muted); }
+.modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+
+/* ---- Danger zone ---- */
+.danger-zone {
+  margin-top: 2rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+}

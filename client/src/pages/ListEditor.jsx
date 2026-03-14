@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 import Navbar from "../components/Navbar";
+import PasswordInput from "../components/PasswordInput";
 
 export default function ListEditor() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [list, setList] = useState(null);
   const [items, setItems] = useState([]);
   const [newTitle, setNewTitle] = useState("");
@@ -15,6 +17,7 @@ export default function ListEditor() {
   const [passcode, setPasscode] = useState("");
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     api.lists.getOne(id).then((data) => {
@@ -72,6 +75,16 @@ export default function ListEditor() {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await api.lists.delete(id);
+      navigate("/dashboard");
+    } catch (e) {
+      setError(e.message);
+      setShowDeleteModal(false);
+    }
+  };
+
   const shareUrl = list ? `${window.location.origin}/share/${list.share_token}` : "";
 
   if (!list) return <><Navbar /><p className="loading">Loading&hellip;</p></>;
@@ -107,8 +120,7 @@ export default function ListEditor() {
           {" "}Require passcode to view
         </label>
         {isPrivate && (
-          <input
-            type="password"
+          <PasswordInput
             placeholder="Set new passcode (leave blank to keep existing)"
             value={passcode}
             onChange={(e) => setPasscode(e.target.value)}
@@ -167,6 +179,29 @@ export default function ListEditor() {
           </ul>
         )}
       </section>
+
+      <div className="danger-zone">
+        <button className="btn btn-danger" onClick={() => setShowDeleteModal(true)}>
+          Delete list
+        </button>
+      </div>
+
+      {showDeleteModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Delete "{list.name}"?</h3>
+            <p>This will permanently delete the list and all its items. This cannot be undone.</p>
+            <div className="modal-actions">
+              <button className="btn btn-secondary" onClick={() => setShowDeleteModal(false)}>
+                Cancel
+              </button>
+              <button className="btn btn-danger" onClick={handleDelete}>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
     </>
   );

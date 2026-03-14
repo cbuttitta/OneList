@@ -11,18 +11,11 @@ export default function Dashboard() {
     api.lists.getAll().then(setLists).catch((e) => setError(e.message));
   }, []);
 
-  const handleDelete = async (id) => {
-    if (!confirm("Delete this list?")) return;
-    try {
-      await api.lists.delete(id);
-      setLists((prev) => prev.filter((l) => l.id !== id));
-    } catch (e) {
-      setError(e.message);
-    }
-  };
-
   const shareUrl = (list) =>
     `${window.location.origin}/share/${list.share_token}`;
+
+  const listEmoji = (type) =>
+    type === "christmas" ? "🎄 " : type === "birthday" ? "🎂 " : "";
 
   return (
     <>
@@ -34,7 +27,7 @@ export default function Dashboard() {
 
       {error && <p className="error">{error}</p>}
 
-      <Link to="/lists/new" className="btn new-list-btn">+ New list</Link>
+      <Link to="/lists/new" className="btn new-list-btn">+ New List</Link>
 
       {lists.length === 0 ? (
         <p className="empty">No lists yet. Create your first one!</p>
@@ -44,7 +37,8 @@ export default function Dashboard() {
             <li key={list.id} className="list-card">
               <div className="list-card-info">
                 <Link to={`/lists/${list.id}`} className="list-name">
-                  {list.name}
+                  {listEmoji(list.list_type) && <span>{listEmoji(list.list_type)}</span>}
+                  <span className="list-name-text">{list.name}</span>
                 </Link>
                 {list.is_private && <span className="badge">Private</span>}
               </div>
@@ -54,12 +48,6 @@ export default function Dashboard() {
                   onClick={() => navigator.clipboard.writeText(shareUrl(list))}
                 >
                   Copy link
-                </button>
-                <button
-                  className="btn btn-sm btn-danger"
-                  onClick={() => handleDelete(list.id)}
-                >
-                  Delete
                 </button>
               </div>
             </li>

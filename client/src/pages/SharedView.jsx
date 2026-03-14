@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../services/api";
+import PasswordInput from "../components/PasswordInput";
 
 export default function SharedView() {
   const { token } = useParams();
@@ -48,8 +49,7 @@ export default function SharedView() {
         <form onSubmit={handlePasscode} className="auth-form">
           <p>This list is private. Enter the passcode to view it.</p>
           {error && <p className="error">{error}</p>}
-          <input
-            type="password"
+          <PasswordInput
             placeholder="Passcode"
             value={passcode}
             onChange={(e) => setPasscode(e.target.value)}

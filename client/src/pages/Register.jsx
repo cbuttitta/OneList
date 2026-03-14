@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../services/api";
+import PasswordInput from "../components/PasswordInput";
 
 const checks = [
   { label: "At least 8 characters",        test: (p) => p.length >= 8 },
@@ -54,8 +55,7 @@ export default function Register() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <input
-          type="password"
+        <PasswordInput
           placeholder="Password"
           value={password}
           onChange={(e) => { setPassword(e.target.value); setTouched(true); }}
