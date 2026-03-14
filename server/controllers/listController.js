@@ -11,9 +11,10 @@ export async function getAll(req, res) {
 }
 
 export async function create(req, res) {
-  const { name } = req.body;
+  const { name, description, is_private, passcode } = req.body;
   if (!name) return res.status(400).json({ message: "Name required" });
-  const list = await listRepo.create({ userId: req.user.id, name });
+  const passcode_hash = passcode ? await bcrypt.hash(passcode, 12) : null;
+  const list = await listRepo.create({ userId: req.user.id, name, description, is_private: !!is_private, passcode_hash });
   res.status(201).json(list);
 }
 

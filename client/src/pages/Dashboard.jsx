@@ -5,26 +5,13 @@ import { api } from "../services/api";
 
 export default function Dashboard() {
   const [lists, setLists] = useState([]);
-  const [newName, setNewName] = useState("");
   const [error, setError] = useState("");
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     api.lists.getAll().then(setLists).catch((e) => setError(e.message));
   }, []);
-
-  const handleCreate = async (e) => {
-    e.preventDefault();
-    if (!newName.trim()) return;
-    try {
-      const list = await api.lists.create({ name: newName.trim() });
-      setLists((prev) => [...prev, list]);
-      setNewName("");
-    } catch (e) {
-      setError(e.message);
-    }
-  };
 
   const handleDelete = async (id) => {
     if (!confirm("Delete this list?")) return;
@@ -50,19 +37,10 @@ export default function Dashboard() {
 
       {error && <p className="error">{error}</p>}
 
-      <form onSubmit={handleCreate} className="new-list-form">
-        <input
-          type="text"
-          placeholder="New list name"
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-          required
-        />
-        <button type="submit" className="btn">Create</button>
-      </form>
+      <Link to="/lists/new" className="btn new-list-btn">+ New list</Link>
 
       {lists.length === 0 ? (
-        <p className="empty">No lists yet. Create one above!</p>
+        <p className="empty">No lists yet. Create your first one!</p>
       ) : (
         <ul className="list-cards">
           {lists.map((list) => (

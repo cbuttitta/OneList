@@ -223,3 +223,45 @@ input[readonly] { background: var(--bg); cursor: default; }
   padding: 2rem 1rem;
 }
 .shared-view h1 { color: var(--primary); margin-bottom: 1.5rem; }
+
+/* ---- Password checklist ---- */
+.password-checks {
+  list-style: none;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.check-pass { color: #2e7d32; }
+.check-fail { color: var(--danger); }
+
+/* ---- Create list form ---- */
+.create-list-form { gap: 1rem; }
+.field-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: var(--text);
+}
+.field-label textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-family: inherit;
+  resize: vertical;
+}
+.field-label textarea:focus { outline: 2px solid var(--primary); outline-offset: 1px; }
+.optional { font-weight: normal; color: var(--muted); }
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+.checkbox-label input[type="checkbox"] { width: auto; cursor: pointer; }
+.new-list-btn { display: inline-block; margin-bottom: 1.25rem; }

@@ -13,10 +13,18 @@ function signToken(user) {
   );
 }
 
+const PASSWORD_RULES = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+
 export async function register(req, res) {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
     return res.status(400).json({ message: "All fields required" });
+  }
+
+  if (!PASSWORD_RULES.test(password)) {
+    return res.status(400).json({
+      message: "Password must be at least 8 characters and include an uppercase letter, lowercase letter, number, and special character",
+    });
   }
 
   const existing = await userRepo.findByEmail(email);

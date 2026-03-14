@@ -22,10 +22,10 @@ export class ListRepository {
     return rows[0] || null;
   }
 
-  async create({ userId, name }) {
+  async create({ userId, name, description, is_private, passcode_hash }) {
     const { rows } = await pool.query(
-      "INSERT INTO lists (user_id, name) VALUES ($1, $2) RETURNING *",
-      [userId, name]
+      "INSERT INTO lists (user_id, name, description, is_private, passcode_hash) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [userId, name, description || null, is_private ?? false, passcode_hash ?? null]
     );
     return rows[0];
   }

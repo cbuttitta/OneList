@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ListEditor from "./pages/ListEditor";
+import CreateList from "./pages/CreateList";
 import SharedView from "./pages/SharedView";
 import "./App.css";
 
@@ -23,6 +24,10 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/share/:token" element={<SharedView />} />
+          <Route
+            path="/lists/new"
+            element={<ProtectedRoute><CreateList /></ProtectedRoute>}
+          />
           <Route
             path="/dashboard"
             element={<ProtectedRoute><Dashboard /></ProtectedRoute>}

@@ -9,6 +9,7 @@ CREATE TABLE lists (
   id SERIAL PRIMARY KEY,
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
   name VARCHAR(100) NOT NULL,
+  description TEXT,
   share_token UUID DEFAULT gen_random_uuid() UNIQUE NOT NULL,
   is_private BOOLEAN DEFAULT FALSE NOT NULL,
   passcode_hash TEXT
