@@ -29,19 +29,35 @@ export const api = {
   },
   lists: {
     getAll: () => request("GET", "/lists"),
+    getArchived: () => request("GET", "/lists/archived"),
     create: (body) => request("POST", "/lists", body),
     getOne: (id) => request("GET", `/lists/${id}`),
     update: (id, body) => request("PUT", `/lists/${id}`, body),
+    archive: (id) => request("PUT", `/lists/${id}/archive`),
+    duplicate: (id) => request("POST", `/lists/${id}/duplicate`),
     delete: (id) => request("DELETE", `/lists/${id}`),
     getByToken: (token) => request("GET", `/lists/share/${token}`),
     verifyPasscode: (token, passcode) =>
       request("POST", `/lists/share/${token}/verify`, { passcode }),
+    claimItem: (token, itemId, body) =>
+      request("PUT", `/lists/share/${token}/items/${itemId}`, body),
   },
   items: {
     create: (listId, body) => request("POST", `/lists/${listId}/items`, body),
     update: (listId, itemId, body) =>
       request("PUT", `/lists/${listId}/items/${itemId}`, body),
+    edit: (listId, itemId, body) =>
+      request("PUT", `/lists/${listId}/items/${itemId}/edit`, body),
+    reorder: (listId, itemId, direction) =>
+      request("PUT", `/lists/${listId}/items/${itemId}/reorder`, { direction }),
     delete: (listId, itemId) =>
       request("DELETE", `/lists/${listId}/items/${itemId}`),
+  },
+  preview: {
+    fetch: (url) => request("POST", "/preview", { url }),
+  },
+  profile: {
+    get: (token) => request("GET", `/profile/${token}`),
+    getMe: () => request("GET", "/auth/me"),
   },
 };

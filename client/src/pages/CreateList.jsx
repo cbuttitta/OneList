@@ -42,7 +42,7 @@ export default function CreateList() {
       <Navbar />
       <main className="auth-page">
       <form onSubmit={handleSubmit} className="auth-form create-list-form">
-        <Link to="/dashboard" className="back-link">&larr; Back to my lists</Link>
+        <Link to="/dashboard" className="back-link">⬅ Back to my lists</Link>
         <h2>New List</h2>
         {error && <p className="error">{error}</p>}
 

@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import ListEditor from "./pages/ListEditor";
 import CreateList from "./pages/CreateList";
 import SharedView from "./pages/SharedView";
+import ProfileView from "./pages/ProfileView";
 import "./App.css";
 
 function ProtectedRoute({ children }) {
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
           <Route path="/register" element={<GuestRoute><Register /></GuestRoute>} />
           <Route path="/share/:token" element={<SharedView />} />
+          <Route path="/profile/:token" element={<ProfileView />} />
           <Route
             path="/lists/new"
             element={<ProtectedRoute><CreateList /></ProtectedRoute>}

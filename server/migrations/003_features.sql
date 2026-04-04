@@ -1,0 +1,15 @@
+ALTER TABLE list_items ADD COLUMN IF NOT EXISTS position INT;
+ALTER TABLE list_items ADD COLUMN IF NOT EXISTS priority VARCHAR(10);
+ALTER TABLE list_items ADD COLUMN IF NOT EXISTS quantity INT NOT NULL DEFAULT 1;
+ALTER TABLE list_items ADD COLUMN IF NOT EXISTS claimer_note TEXT;
+
+UPDATE list_items li
+SET position = subq.row_num
+FROM (
+  SELECT id, ROW_NUMBER() OVER (PARTITION BY list_id ORDER BY id) AS row_num
+  FROM list_items
+) subq
+WHERE li.id = subq.id AND li.position IS NULL;
+
+ALTER TABLE lists ADD COLUMN IF NOT EXISTS is_archived BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE lists ADD COLUMN IF NOT EXISTS surprise_mode BOOLEAN NOT NULL DEFAULT FALSE;

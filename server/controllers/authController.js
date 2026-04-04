@@ -38,6 +38,12 @@ export async function register(req, res) {
   res.status(201).json({ token, user: { id: user.id, email: user.email, name: user.name } });
 }
 
+export async function me(req, res) {
+  const user = await userRepo.findById(req.user.id);
+  if (!user) return res.status(404).json({ message: "User not found" });
+  res.json({ id: user.id, name: user.name, email: user.email, profile_token: user.profile_token });
+}
+
 export async function login(req, res) {
   const { email, password } = req.body;
   if (!email || !password) {
